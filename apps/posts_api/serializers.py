@@ -3,21 +3,6 @@ from rest_framework import serializers
 from apps.posts.models import Post, Comment, Like
 
 
-class PostSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Post
-        fields = (
-            'id',
-            'title',
-            'content',
-            'pub_date',
-            'user',
-            'likes',
-            'number_of_comments',
-        )
-
-
 class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -39,4 +24,19 @@ class LikeSerializer(serializers.ModelSerializer):
             'id',
             'user',
             'post',
+        )
+
+
+class PostSerializer(serializers.ModelSerializer):
+    comments = CommentSerializer(many=True)
+    class Meta:
+        model = Post
+        fields = (
+            'id',
+            'title',
+            'content',
+            'pub_date',
+            'user',
+            'likes',
+            'comments',
         )
