@@ -47,9 +47,9 @@ INSTALLED_APPS = [
     'allauth.account',
     'rest_auth.registration',
 
+    'apps.users',
     'apps.posts',
     'apps.posts_api',
-    'apps.users',
 ]
 
 MIDDLEWARE = [
@@ -139,7 +139,7 @@ STATIC_URL = '/static/'
 
 # Auth info
 
-AUTH_USER_MODEL = 'users.CustomUser'
+AUTH_USER_MODEL = 'users.User'
 
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_EMAIL_REQUIRED = True
@@ -149,3 +149,8 @@ ACCOUNT_AUTHENTICATION_METHOD = None
 
 
 SITE_ID = 1
+
+
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'apps.users.serializers.UserSerializer',
+}
