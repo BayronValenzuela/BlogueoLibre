@@ -38,8 +38,10 @@ class PostPermission(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
 
-        # To modify a post, user must be the owner.
-        return obj.user == request.user
+        # To modify a post, user must be the owner or
+        # part of the group that created the post.
+        return (obj.user == request.user) or (request.user.group == obj.user.group)
+
 
 class LikePermission(permissions.BasePermission):
 
@@ -53,3 +55,14 @@ class LikePermission(permissions.BasePermission):
             return request.user == obj.user
 
         return True
+
+
+class GroupPermission(permissions.BasePermission):
+
+    def has_permission(self, request, view):
+        # Solo un profesor/asistente puede crear o ver.
+        return request.user.is_assistant or request.user.is_teacher
+
+    def has_object_permission(self, request, view, obj):
+        # Solo un profesor/asistente puede modificar.
+        return request.user.is_assistant or request.user.is_teacher
