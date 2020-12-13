@@ -16,7 +16,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -47,9 +46,9 @@ INSTALLED_APPS = [
     'allauth.account',
     'rest_auth.registration',
 
-    'backend.apps.users',
-    'backend.apps.posts',
-    'backend.apps.posts_api',
+    'apps.users',
+    'apps.posts',
+    'apps.posts_api',
 ]
 
 MIDDLEWARE = [
@@ -152,5 +151,5 @@ SITE_ID = 1
 
 
 REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'backend.apps.users.serializers.UserSerializer',
+    'USER_DETAILS_SERIALIZER': 'apps.users.serializers.UserSerializer',
 }
