@@ -47,9 +47,9 @@ INSTALLED_APPS = [
     'allauth.account',
     'rest_auth.registration',
 
-    'apps.users',
-    'apps.posts',
-    'apps.posts_api',
+    'backend.apps.users',
+    'backend.apps.posts',
+    'backend.apps.posts_api',
 ]
 
 MIDDLEWARE = [
@@ -152,5 +152,5 @@ SITE_ID = 1
 
 
 REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'apps.users.serializers.UserSerializer',
+    'USER_DETAILS_SERIALIZER': 'backend.apps.users.serializers.UserSerializer',
 }

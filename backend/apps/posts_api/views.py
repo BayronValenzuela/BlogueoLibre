@@ -1,8 +1,8 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
-from apps.posts.models import Post, Comment, Like
-from apps.users.permissions import IsOwnerOrReadOnly, CommentPermission, PostPermission, LikePermission
+from backend.apps.posts.models import Post, Comment, Like
+from backend.apps.users.permissions import IsOwnerOrReadOnly, CommentPermission, PostPermission, LikePermission
 from .serializers import PostSerializer, CommentSerializer, LikeSerializer
 
 
