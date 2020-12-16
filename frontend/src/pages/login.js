@@ -114,7 +114,7 @@ function Login() {
             control={<Checkbox value="remember" color="primary" />}
             label="Recuérdame"
           />
-          <Button onClick={(e)=> getUserAccount(email, password)}
+          <Button onClick={()=> getUserAccount(email, password)}
             type="submit"
             fullWidth
             variant="contained"
