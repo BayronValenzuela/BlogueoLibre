@@ -12,6 +12,24 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import blogueolibrev2 from './img/blogueolibrev2.png';
 
+const axios = require('axios').default;
+
+function getUserAccount(email, password) {
+  return (
+  axios.post('http://localhost:8000/auth/login/', {
+    username: '',
+    email: email,
+    password: password
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  })
+  );
+}
+
 function Copyright() {
   return (  
     <Typography variant="body2" color="textSecondary" align="center">
@@ -44,6 +62,18 @@ const usarEstilos = makeStyles((theme) => ({
 function Login() {
   const classes = usarEstilos();
 
+  const [email, setEmail] = React.useState("");
+  const handleSetEmail = (event) => {
+    console.log(email)
+    setEmail(event.target.value);
+  }
+
+  const [password, setPassword] = React.useState("");
+  const handleSetPassword = (event) => {
+    console.log(password)
+    setPassword(event.target.value);
+  }
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -55,6 +85,8 @@ function Login() {
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
+            value={email}
+            onChange={handleSetEmail}
             variant="outlined"
             margin="normal"
             required
@@ -66,6 +98,8 @@ function Login() {
             autoFocus
           />
           <TextField
+            value={password}
+            onChange={handleSetPassword}
             variant="outlined"
             margin="normal"
             required
@@ -80,7 +114,7 @@ function Login() {
             control={<Checkbox value="remember" color="primary" />}
             label="Recuérdame"
           />
-          <Button
+          <Button onClick={(e)=> getUserAccount(email, password)}
             type="submit"
             fullWidth
             variant="contained"

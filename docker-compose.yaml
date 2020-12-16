@@ -20,6 +20,7 @@ services:
       - db
 
   frontend:
+    restart: always
     command : npm start
     container_name: front
     build:
