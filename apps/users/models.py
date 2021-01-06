@@ -13,9 +13,9 @@ class User(AbstractUser):
 
     username = None
     email = models.EmailField(_('email address'), unique=True)
-    is_student = models.BooleanField('student status', default=False)
+    is_student = models.BooleanField('student status', default=True)
     is_teacher = models.BooleanField('teacher status', default=False)
-    is_assistant = models.BooleanField('assistant status', default=True)
+    is_assistant = models.BooleanField('assistant status', default=False)
     group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='group', null=True)
 
     USERNAME_FIELD = 'email'

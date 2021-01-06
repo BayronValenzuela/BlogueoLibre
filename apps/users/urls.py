@@ -7,6 +7,7 @@ from . import views
 
 urlpatterns = [
     path('groups/', views.GroupList.as_view()),
+    path('group/<int:pk>/', views.GroupDetail.as_view()),
     url(r'^auth/', include('rest_auth.urls')),
     url(r'^auth/registration/', include('rest_auth.registration.urls')),
     url(r'^account/', include('allauth.urls')),

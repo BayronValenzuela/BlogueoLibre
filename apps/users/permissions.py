@@ -1,6 +1,6 @@
 from rest_framework import permissions
 
-#Comments
+
 class IsOwnerOrReadOnly(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
@@ -15,12 +15,17 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 class CommentPermission(permissions.BasePermission):
 
     def has_permission(self, request, view):
+        # Anyone can view comments
         if request.method in permissions.SAFE_METHODS:
             return True
+        # Only a teacher or assistant can create a comment
         return request.user.is_teacher or request.user.is_assistant
 
     def has_object_permission(self, request, view, obj):
-        # To modify a comment, user must be the owner.
+        # To modify a comment, user must be the owner,
+        # but teachers can delete them.
+        if request.method in ['DELETE']:
+            return request.user.is_teacher
         return obj.user == request.user
 
 
@@ -49,8 +54,7 @@ class LikePermission(permissions.BasePermission):
         return True
 
     def has_object_permission(self, request, view, obj):
-        # Read permissions are allowed to any request,
-        # so we'll always allow GET, HEAD or OPTIONS requests.
+        # Only the owner of a post can modify or delete it
         if request.method in ['DELETE', 'PUT']:
             return request.user == obj.user
 
@@ -60,9 +64,9 @@ class LikePermission(permissions.BasePermission):
 class GroupPermission(permissions.BasePermission):
 
     def has_permission(self, request, view):
-        # Solo un profesor/asistente puede crear o ver.
-        return request.user.is_assistant or request.user.is_teacher
+        # Only a teacher can create or view groups
+        return request.user.is_teacher
 
     def has_object_permission(self, request, view, obj):
-        # Solo un profesor/asistente puede modificar.
-        return request.user.is_assistant or request.user.is_teacher
+        # Only a teacher can modify or delete groups
+        return request.user.is_teacher
